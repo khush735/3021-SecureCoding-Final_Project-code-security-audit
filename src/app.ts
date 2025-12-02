@@ -72,3 +72,23 @@ app.get("/api/v1/portfolio/allocation", (req, res) => {
 });
 
 export default app;
+
+// vulnerabilities:
+
+app.get('/api/v1/admin/users', (req, res) => {
+    // VULNERABILITY 1: No authentication
+    const userId = req.query.userId;
+    // VULNERABILITY 2: SQL injection pattern
+    const query = `SELECT * FROM users WHERE id = ${userId}`;
+    res.json({ query: query, message: "This is a simulated vulnerable endpoint" });
+});
+
+
+app.post('/api/v1/portfolio/comment', (req, res) => {
+    // VULNERABILITY 3: XSS vulnerability
+    const userComment = req.body.comment;
+    res.json({ 
+        message: `Your comment: ${userComment} was saved`, // No sanitization!
+        status: "success"
+    });
+});
