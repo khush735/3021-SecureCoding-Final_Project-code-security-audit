@@ -1,0 +1,17 @@
+name: Security Scan
+on: [push, pull_request]
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Run npm audit
+        run: npm audit --audit-level=high
+      - name: Run ESLint security scan
+        run: npx eslint . --ext .ts,.js --no-eslintrc --config .eslintrc.security.js || true
