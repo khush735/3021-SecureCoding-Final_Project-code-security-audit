@@ -75,20 +75,26 @@ export default app;
 
 // vulnerabilities:
 
-app.get('/api/v1/admin/users', (req, res) => {
-    // VULNERABILITY 1: No authentication
-    const userId = req.query.userId;
-    // VULNERABILITY 2: SQL injection pattern
-    const query = `SELECT * FROM users WHERE id = ${userId}`;
-    res.json({ query: query, message: "This is a simulated vulnerable endpoint" });
-});
+// VULNERABILITY 1: Hardcoded secret (for testing)
+const TEST_SECRET = "super_secret_password_123"; // ESLint will flag this
 
+// VULNERABILITY 2: Dangerous pattern (for testing)
+function dangerousFunction(userInput: string) {
+    // This is intentionally bad code for the audit
+    const obj: { [key: string]: string } = {};
+    obj[userInput] = "value"; // Potential object injection
+    return obj;
+}
 
-app.post('/api/v1/portfolio/comment', (req, res) => {
-    // VULNERABILITY 3: XSS vulnerability
-    const userComment = req.body.comment;
+// VULNERABILITY 3: Add a test endpoint with issues
+app.get('/api/test-vulnerable', (req, res) => {
+    const userCode = req.query.code as string;
+    
+    // ESLint security will flag eval usage
+    // const result = eval(userCode); // Uncomment to test
+    
     res.json({ 
-        message: `Your comment: ${userComment} was saved`, // No sanitization!
-        status: "success"
+        message: "This endpoint has security issues for audit purposes",
+        note: "See ESLint security warnings"
     });
 });
