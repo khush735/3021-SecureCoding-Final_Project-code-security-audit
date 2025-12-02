@@ -1,0 +1,49 @@
+{
+  "name": "3018-bed-assignment-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+  "start": "node dist/server.js",
+  "dev": "ts-node src/server.ts",
+  "build": "tsc",
+  "test": "jest",
+  "lint": "eslint src/**/*.ts"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khush735/3018-BED-Assignment-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/khush735/3018-BED-Assignment-1/issues"
+  },
+  "homepage": "https://github.com/khush735/3018-BED-Assignment-1#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.3.1",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.1.3",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": ["**/test/**/*.test.ts"],
+    "collectCoverageFrom": ["src/**/*.ts"],
+    "coverageDirectory": "coverage"
+  }
+}
