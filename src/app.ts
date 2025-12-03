@@ -72,3 +72,29 @@ app.get("/api/v1/portfolio/allocation", (req, res) => {
 });
 
 export default app;
+
+// vulnerabilities:
+
+// VULNERABILITY 1: Hardcoded secret (for testing)
+const TEST_SECRET = "super_secret_password_123"; // ESLint will flag this
+
+// VULNERABILITY 2: Dangerous pattern (for testing)
+function dangerousFunction(userInput: string) {
+    // This is intentionally bad code for the audit
+    const obj: { [key: string]: string } = {};
+    obj[userInput] = "value"; // Potential object injection
+    return obj;
+}
+
+// VULNERABILITY 3: Add a test endpoint with issues
+app.get('/api/test-vulnerable', (req, res) => {
+    const userCode = req.query.code as string;
+    
+    // ESLint security will flag eval usage
+    // const result = eval(userCode); // Uncomment to test
+    
+    res.json({ 
+        message: "This endpoint has security issues for audit purposes",
+        note: "See ESLint security warnings"
+    });
+});
